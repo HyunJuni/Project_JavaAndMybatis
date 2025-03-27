@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="agerange">
+	<select id="getCodeList" resultType="map">
+		SELECT
+				*
+			FROM CODE_MST
+		WHERE CODE_GRP = 'AGRG'
+	</select>
+	
+	<insert id="insertDay" parameterType="java.util.List">
+		INSERT INTO STAT_DAY_AGE_RANGE
+		(
+			STAT_DAY
+			, CITY_CD
+			, AGE_RANGE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+	</insert>
+	
+	<select id="getYearMonth" resultType="map">
+		SELECT
+				MONTH
+				, CITY_CD
+				, AGE_RANGE_CD
+				, SUM(ACDNT_CNT) ACDNT_CNT_TOTAL
+				, SUM(INJPSN_CNT) INJPSN_CNT_TOTAL
+				, SUM(DCSD_CNT) DCSD_CNT_TOTAL
+				, SUM(VHCL_CNT) VHCL_CNT_TOTAL
+			FROM
+			(
+				SELECT
+						SUBSTRING(STAT_DAY, 1, 6) MONTH
+						, CITY_CD
+						, AGE_RANGE_CD
+						, ACDNT_CNT
+						, INJPSN_CNT
+						, DCSD_CNT
+						, VHCL_CNT
+					FROM STAT_DAY_AGE_RANGE
+				WHERE
+					SUBSTRING(STAT_DAY, 1, 6) != DATE_FORMAT(NOW(), '%Y%m')
+			) T
+		GROUP BY T.MONTH, T.CITY_CD, T.AGE_RANGE_CD
+	</select>
+	
+		<insert id="insertMonth" parameterType="java.util.List">
+		INSERT INTO STAT_MONTH_AGE_RANGE
+		(
+			STAT_MONTH
+			, CITY_CD
+			, AGE_RANGE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+	</insert>
+	
+	<select id="getYear" resultType="map">
+		SELECT
+				YEAR
+				, CITY_CD
+				, AGE_RANGE_CD
+				, SUM(ACDNT_CNT) ACDNT_CNT_TOTAL
+				, SUM(INJPSN_CNT) INJPSN_CNT_TOTAL
+				, SUM(DCSD_CNT) DCSD_CNT_TOTAL
+				, SUM(VHCL_CNT) VHCL_CNT_TOTAL
+			FROM
+			(
+				SELECT
+						SUBSTRING(STAT_MONTH, 1, 4) YEAR
+						, CITY_CD
+						, AGE_RANGE_CD
+						, ACDNT_CNT
+						, INJPSN_CNT
+						, DCSD_CNT
+						, VHCL_CNT
+					FROM STAT_MONTH_AGE_RANGE
+				WHERE
+					SUBSTRING(STAT_MONTH, 1, 4) != DATE_FORMAT(NOW(), '%Y')
+			) T
+		GROUP BY T.YEAR, CITY_CD, AGE_RANGE_CD
+	</select>
+	
+	<insert id="insertYear" parameterType="java.util.List">
+		INSERT INTO STAT_YEAR_AGE_RANGE
+		(
+			STAT_YEAR
+			, CITY_CD
+			, AGE_RANGE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+	</insert>
+	
+	<insert id="insertHour" parameterType="java.util.List">
+		INSERT INTO STAT_HOUR_AGE_RANGE
+		(
+			STAT_HOUR
+			, CITY_CD
+			, AGE_RANGE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+	</insert>
+</mapper>

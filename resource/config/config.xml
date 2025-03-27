@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+ 
+    <environments default="development">
+        <environment id="development">
+          <transactionManager type="JDBC"/>
+            <!--  connecting to Local MySql -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://nzero.kr:53300/guatemalaacc"/>
+                <property name="username" value="guate"/>
+                <property name="password" value="nzero8439"/>
+                <!-- <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/guatemalaacc"/>
+                <property name="username" value="root"/>
+                <property name="password" value="P@ssw0rd"/> -->
+            </dataSource>
+       </environment>
+    </environments>
+    <mappers>
+    	
+       <mapper resource="sqlmap/location.xml"/>
+       <mapper resource="sqlmap/roadtype.xml"/>
+       <mapper resource="sqlmap/gender.xml"/>
+       <mapper resource="sqlmap/agerange.xml"/>
+       <mapper resource="sqlmap/main.xml"/>
+       <mapper resource="sqlmap/vhcl.xml"/>
+       <mapper resource="sqlmap/accidentReason.xml"/>
+    </mappers>
+</configuration>

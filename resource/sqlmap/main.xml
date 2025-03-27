@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	
+	<select id="getCodeList" resultType="map">
+		SELECT
+				*
+			FROM CODE_MST
+		WHERE CODE_GRP = 'VHCL'
+	</select>
+	
+	<insert id="insertYear" parameterType="java.util.List">
+		INSERT INTO STAT_YEAR_VHCL_TYPE
+		(
+			STAT_YEAR
+			, CITY_CD
+			, VHCL_TYPE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat_year}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+		<!-- (
+			#{stat_year}
+			, #{city_cd}
+			, #{code_id}
+			, #{acdnt_cnt}
+			, #{injpsn_cnt}
+			, #{dcsd_cnt}
+			, #{vhcl_cnt}
+		) -->
+	</insert>
+	
+	<insert id="insertMonth" parameterType="java.util.List">
+		INSERT INTO STAT_MONTH_VHCL_TYPE
+		(
+			STAT_MONTH
+			, CITY_CD
+			, VHCL_TYPE_CD
+			, ACDNT_CNT
+			, INJPSN_CNT
+			, DCSD_CNT
+			, VHCL_CNT
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stat_month}, #{item.city_cd}, #{item.code_id}, #{item.acdnt_cnt}, #{item.injpsn_cnt}, #{item.dcsd_cnt}, #{item.vhcl_cnt})
+        </foreach>
+		<!-- (
+			#{stat_month}
+			, #{city_cd}
+			, #{code_id}
+			, #{acdnt_cnt}
+			, #{injpsn_cnt}
+			, #{dcsd_cnt}
+			, #{vhcl_cnt}
+		) -->
+		
+		
+		
+	</insert>
+</mapper>
