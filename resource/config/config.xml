@@ -11,13 +11,9 @@
             <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://nzero.kr:53300/guatemalaacc"/>
-                <property name="username" value="guate"/>
-                <property name="password" value="nzero8439"/>
-                <!-- <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/guatemalaacc"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
                 <property name="username" value="root"/>
-                <property name="password" value="P@ssw0rd"/> -->
+                <property name="password" value="P@ssw0rd"/>
             </dataSource>
        </environment>
     </environments>
